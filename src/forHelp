@@ -1,0 +1,55 @@
+ I am trying to subscribe to a topic and trigger a callback function. Following the wikipage on subscribers, I wrote the following lines (since I am dealing with C++ namespaces):
+
+FILE main.cpp
+
+    mavros_msgs::State current_state;  
+ 	void state_cb(const mavros_msgs::State::ConstPtr& msg){
+        current_state = *msg;
+    }  
+    .  
+    .  
+    .   
+    
+    std::vector<ros::Subscriber> states(num);  
+    std::vector<ros::Subscriber> positions(num);  
+    std::vector<ros::Subscriber> velocities_sub(num);  
+    for(int i=0 ; i < num; i++){  
+        states[i] = nh.subscribe<mavros_msgs::State>(mavros+(std::to_string(i+1))+"/state",1,state_cb);  
+        positions[i] = nh.subscribe<geometry_msgs::PoseWithCovarianceStamped>  
+        (mavros+(std::to_string(i+1))+"/global_position/local",10, &ORCA::Agent::position_cb , &drones[i]); 
+        velocities_sub[i] = nh.subscribe<geometry_msgs::TwistStamped>  
+        (mavros+(std::to_string(i+1))+"/global_position/gp_vel",1, &ORCA::Agent::vel_cb, &drones[i]);
+
+
+
+FILE Agent.h  
+
+    .  
+    .  
+    .  
+    void position_cb(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg);  
+    void vel_cb(const geometry_msgs::TwistStamped::ConstPtr& msg);  
+    geometry_msgs::PoseWithCovarianceStamped current_position;  
+    geometry_msgs::TwistStamped current_velocity;
+    .
+    .
+    .
+    .
+
+
+
+FILE Agent.cpp
+
+    void Agent::position_cb(const geometry_msgs::PoseWithCovarianceStamped::ConstPtr& msg){  
+        current_position= *msg;  
+        ROS_INFO_STREAM("Message 2 reached");  
+    } 
+	 
+ 	void Agent::vel_cb(const geometry_msgs::TwistStamped::ConstPtr& msg){  
+    	current_velocity= *msg;  
+    	ROS_INFO_STREAM("Message 1 reached");  
+	}  
+
+I have used "rostopic list" and rqt to verify the topic "/global_position/local" is being published while my program is running. I have used "rostopic info" to verify that the topic is of type "geometry_msgs/PoseWithCovarianceStamped".
+
+I have further verified that the subscriber constructor line is executed, but my callback function is never called. Any help or tips on how to debug is much appreciated since I'm unsure of what to do. I am using ROS Melodic and gazebo simulator on Ubuntu 18.04
