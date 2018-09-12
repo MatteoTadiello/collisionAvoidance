@@ -277,9 +277,13 @@ int main(int argc, char *argv[])
         }
 
         //if(change){
-    	for(int j=0 ; j<num;j++){
-    		positions_pub[j].publish(second_goal[j]);
-    	}
+        for(int i = 100; ros::ok() && i > 0; --i){
+    		for(int j=0 ; j<num;j++){
+    			positions_pub[j].publish(second_goal[j]);
+    		}
+    		ros::spinOnce;
+    		rate.sleep();
+       	}
 	
        // }else{
         //	for(int i = 100; ros::ok() && i > 0; --i){
