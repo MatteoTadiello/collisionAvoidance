@@ -53,7 +53,7 @@ namespace ORCA{
 				coord = 2;
 			}
 
-			const float splitValue = 0.5f * (agentTree_[node].maxCoord[coord] + agentTree_[node].minCoord[coord]);
+			const double splitValue = 0.5f * (agentTree_[node].maxCoord[coord] + agentTree_[node].minCoord[coord]);
 
 			size_t left = begin;
 
@@ -104,9 +104,9 @@ namespace ORCA{
 			}
 		}
 		else {
-			const float distSqLeft = sqr(std::max(0.0f, agentTree_[agentTree_[node].left].minCoord[0] - agent->position_.x())) + sqr(std::max(0.0f, agent->position_.x() - agentTree_[agentTree_[node].left].maxCoord[0])) + sqr(std::max(0.0f, agentTree_[agentTree_[node].left].minCoord[1] - agent->position_.y())) + sqr(std::max(0.0f, agent->position_.y() - agentTree_[agentTree_[node].left].maxCoord[1])) + sqr(std::max(0.0f, agentTree_[agentTree_[node].left].minCoord[2] - agent->position_.z())) + sqr(std::max(0.0f, agent->position_.z() - agentTree_[agentTree_[node].left].maxCoord[2]));
+			const float distSqLeft = sqr(std::max(0.0, agentTree_[agentTree_[node].left].minCoord[0] - agent->position_.x())) + sqr(std::max(0.0, agent->position_.x() - agentTree_[agentTree_[node].left].maxCoord[0])) + sqr(std::max(0.0, agentTree_[agentTree_[node].left].minCoord[1] - agent->position_.y())) + sqr(std::max(0.0, agent->position_.y() - agentTree_[agentTree_[node].left].maxCoord[1])) + sqr(std::max(0.0, agentTree_[agentTree_[node].left].minCoord[2] - agent->position_.z())) + sqr(std::max(0.0, agent->position_.z() - agentTree_[agentTree_[node].left].maxCoord[2]));
 
-			const float distSqRight = sqr(std::max(0.0f, agentTree_[agentTree_[node].right].minCoord[0] - agent->position_.x())) + sqr(std::max(0.0f, agent->position_.x() - agentTree_[agentTree_[node].right].maxCoord[0])) + sqr(std::max(0.0f, agentTree_[agentTree_[node].right].minCoord[1] - agent->position_.y())) + sqr(std::max(0.0f, agent->position_.y() - agentTree_[agentTree_[node].right].maxCoord[1])) + sqr(std::max(0.0f, agentTree_[agentTree_[node].right].minCoord[2] - agent->position_.z())) + sqr(std::max(0.0f, agent->position_.z() - agentTree_[agentTree_[node].right].maxCoord[2]));
+			const float distSqRight = sqr(std::max(0.0, agentTree_[agentTree_[node].right].minCoord[0] - agent->position_.x())) + sqr(std::max(0.0, agent->position_.x() - agentTree_[agentTree_[node].right].maxCoord[0])) + sqr(std::max(0.0, agentTree_[agentTree_[node].right].minCoord[1] - agent->position_.y())) + sqr(std::max(0.0, agent->position_.y() - agentTree_[agentTree_[node].right].maxCoord[1])) + sqr(std::max(0.0, agentTree_[agentTree_[node].right].minCoord[2] - agent->position_.z())) + sqr(std::max(0.0, agent->position_.z() - agentTree_[agentTree_[node].right].maxCoord[2]));
 
 			if (distSqLeft < distSqRight) {
 				if (distSqLeft < rangeSq) {

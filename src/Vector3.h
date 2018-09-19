@@ -52,9 +52,9 @@ namespace ORCA {
 		 */
 		inline Vector3()
 		{
-			val_[0] = 0.0f;
-			val_[1] = 0.0f;
-			val_[2] = 0.0f;
+			val_[0] = (double)0.0;
+			val_[1] = (double)0.0;
+			val_[2] = (double)0.0;
 		}
 
 		/**
@@ -72,7 +72,7 @@ namespace ORCA {
 		 * \brief   Constructs and initializes a three-dimensional vector from the specified three-element array.
 		 * \param   val  The three-element array containing the xyz-coordinates.
 		 */
-		inline explicit Vector3(const float val[3])
+		inline explicit Vector3(const double val[3])
 		{
 			val_[0] = val[0];
 			val_[1] = val[1];
@@ -85,7 +85,7 @@ namespace ORCA {
 		 * \param   y  The y-coordinate of the three-dimensional vector.
 		 * \param   z  The z-coordinate of the three-dimensional vector.
 		 */
-		inline Vector3(float x, float y, float z)
+		inline Vector3(double x, double y, double z)
 		{
 			val_[0] = x;
 			val_[1] = y;
@@ -96,33 +96,33 @@ namespace ORCA {
 		 * \brief   Returns the x-coordinate of this three-dimensional vector.
 		 * \return  The x-coordinate of the three-dimensional vector.
 		 */
-		inline float x() const { return val_[0]; }
+		inline double x() const { return val_[0]; }
 
 		/**
 		 * \brief   Returns the y-coordinate of this three-dimensional vector.
 		 * \return  The y-coordinate of the three-dimensional vector.
 		 */
-		inline float y() const { return val_[1]; }
+		inline double y() const { return val_[1]; }
 
 		/**
 		 * \brief   Returns the z-coordinate of this three-dimensional vector.
 		 * \return  The z-coordinate of the three-dimensional vector.
 		 */
-		inline float z() const { return val_[2]; }
+		inline double z() const { return val_[2]; }
 
 		/**
 		 * \brief   Returns the specified coordinate of this three-dimensional vector.
 		 * \param   i  The coordinate that should be returned (0 <= i < 3).
 		 * \return  The specified coordinate of the three-dimensional vector.
 		 */
-		inline float operator[](size_t i) const { return val_[i]; }
+		inline double operator[](size_t i) const { return val_[i]; }
 
 		/**
 		 * \brief   Returns a reference to the specified coordinate of this three-dimensional vector.
 		 * \param   i  The coordinate to which a reference should be returned (0 <= i < 3).
 		 * \return  A reference to the specified coordinate of the three-dimensional vector.
 		 */
-		inline float &operator[](size_t i) { return val_[i]; }
+		inline double &operator[](size_t i) { return val_[i]; }
 
 		/**
 		 * \brief   Computes the negation of this three-dimensional vector.
@@ -138,7 +138,7 @@ namespace ORCA {
 		 * \param   vector  The three-dimensional vector with which the dot product should be computed.
 		 * \return  The dot product of this three-dimensional vector with a specified three-dimensional vector.
 		 */
-		inline float operator*(const Vector3 &vector) const
+		inline double operator*(const Vector3 &vector) const
 		{
 			return val_[0] * vector[0] + val_[1] * vector[1] + val_[2] * vector[2];
 		}
@@ -148,7 +148,7 @@ namespace ORCA {
 		 * \param   scalar  The scalar value with which the scalar multiplication should be computed.
 		 * \return  The scalar multiplication of this three-dimensional vector with a specified scalar value.
 		 */
-		inline Vector3 operator*(float scalar) const
+		inline Vector3 operator*(double scalar) const
 		{
 			return Vector3(val_[0] * scalar, val_[1] * scalar, val_[2] * scalar);
 		}
@@ -158,9 +158,9 @@ namespace ORCA {
 		 * \param   scalar  The scalar value with which the scalar division should be computed.
 		 * \return  The scalar division of this three-dimensional vector with a specified scalar value.
 		 */
-		inline Vector3 operator/(float scalar) const
+		inline Vector3 operator/(double scalar) const
 		{
-			const float invScalar = 1.0f / scalar;
+			const double invScalar = 1.0f / scalar;
 
 			return Vector3(val_[0] * invScalar, val_[1] * invScalar, val_[2] * invScalar);
 		}
@@ -210,7 +210,7 @@ namespace ORCA {
 		 * \param   scalar  The scalar value with which the scalar multiplication should be computed.
 		 * \return  A reference to this three-dimensional vector.
 		 */
-		inline Vector3 &operator*=(float scalar)
+		inline Vector3 &operator*=(double scalar)
 		{
 			val_[0] *= scalar;
 			val_[1] *= scalar;
@@ -224,9 +224,9 @@ namespace ORCA {
 		 * \param   scalar  The scalar value with which the scalar division should be computed.
 		 * \return  A reference to this three-dimensional vector.
 		 */
-		inline Vector3 &operator/=(float scalar)
+		inline Vector3 &operator/=(double scalar)
 		{
-			const float invScalar = 1.0f / scalar;
+			const double invScalar = 1.0f / scalar;
 
 			val_[0] *= invScalar;
 			val_[1] *= invScalar;
@@ -265,7 +265,7 @@ namespace ORCA {
 		}
 
 	private:
-		float val_[3];
+		double val_[3];
 	};
 
 
@@ -276,7 +276,7 @@ namespace ORCA {
 	 * \param    vector  The three-dimensional vector with which the scalar multiplication should be computed.
 	 * \return   The scalar multiplication of the three-dimensional vector with the scalar value.
 	 */
-	inline Vector3 operator*(float scalar, const Vector3 &vector)
+	inline Vector3 operator*(double scalar, const Vector3 &vector)
 	{
 		return Vector3(scalar * vector[0], scalar * vector[1], scalar * vector[2]);
 	}
@@ -313,7 +313,7 @@ namespace ORCA {
 	 * \param    vector  The three-dimensional vector whose length is to be computed.
 	 * \return   The length of the three-dimensional vector.
 	 */
-	inline float abs(const Vector3 &vector)
+	inline double abs(const Vector3 &vector)
 	{
 		return std::sqrt(vector * vector);
 	}
@@ -324,7 +324,7 @@ namespace ORCA {
 	 * \param    vector  The three-dimensional vector whose squared length is to be computed.
 	 * \return   The squared length of the three-dimensional vector.
 	 */
-	inline float absSq(const Vector3 &vector)
+	inline double absSq(const Vector3 &vector)
 	{
 		return vector * vector;
 	}

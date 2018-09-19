@@ -24,7 +24,7 @@
 #include "Agent.h"
 
 const int maxNeighbors = 10;
-const float maxSpeed = 2.5f;
+const float maxSpeed = 1.5f;
 const float neighborDist = 1.0f;
 const float radius = 0.5f;
 const float timeHorizon = 10.0f;
@@ -69,7 +69,7 @@ int main(int argc, char *argv[])
     	positions[i] = nh.subscribe<geometry_msgs::PoseStamped>
     		(mavros+(std::to_string(i+1))+"/local_position/pose",1, &ORCA::Agent::position_cb , &drones[i]); //
     	velocities_sub[i] = nh.subscribe<geometry_msgs::TwistStamped>
-    		(mavros+(std::to_string(i+1))+"/global_position/gp_vel",1, &ORCA::Agent::vel_cb, &drones[i]);
+    		(mavros+(std::to_string(i+1))+"/local_position/velocity",1, &ORCA::Agent::vel_cb, &drones[i]);
     	altitude[i] =nh.advertise<geometry_msgs::PoseStamped>
     		(mavros+(std::to_string(i+1))+"/setpoint_position/local",10);
     	velocities_pub[i] = nh.advertise<geometry_msgs::Twist>
@@ -129,11 +129,7 @@ int main(int argc, char *argv[])
     std::vector<geometry_msgs::PoseStamped> goals(num);
 
 
-    goals[0].pose.position.x = 8;
-    goals[1].pose.position.x = 4;
-    goals[2].pose.position.x = 0;
-    goals[3].pose.position.x = -4;
-    goals[4].pose.position.x = -8;    
+        
     for(int i=0; i<num ; i++){
         goals[i].pose.position.x = (2*(num-1))-((i*2)+((i)*2));
         goals[i].pose.position.y = 0;
@@ -201,7 +197,7 @@ int main(int argc, char *argv[])
         //Invio la nuova velocita' calcolata
          for(int i=0; i<num; i++){
          	velocities_pub[i].publish(drones[i].newVelocityToPublish);
-            //std::cout << "mavros" << i << " " << drones[i].newVelocityToPublish << std::endl;
+            ROS_INFO_STREAM( "mavros" << i << " " << drones[i].newVelocityToPublish << std::endl);
             ros::spinOnce();
             rate.sleep();
         }

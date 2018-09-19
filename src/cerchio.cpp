@@ -21,9 +21,9 @@
 #include "Agent.h"
 
 const int maxNeighbors = 12;
-const float maxSpeed = 0.8f;
+const float maxSpeed = 2.5f;
 const float neighborDist = 1.5f;
-const float radius = 1.5f;
+const float radius = 3.5f;
 const float timeHorizon = 10.0f;
 
 mavros_msgs::State current_state;
@@ -138,6 +138,7 @@ int main(int argc, char *argv[])
     std::vector<ORCA::Agent *> drones_pntr(num);
     std::vector<ros::Subscriber> states(num); 		//Vettori degli stati dei droni
     std::vector<ros::Subscriber> positions_sub(num); 		//Vettore per avere le posizioni
+    std::vector<ros::Subscriber> velocities_sub(num);
     std::vector<ros::Publisher> positions_pub(num);         //Vettore per pubblicare le posizioni
 	std::vector<ros::Publisher> velocities_pub(num); 	//Vettore per pubblicare la velocita'ad ogni drone   
     std::vector<ros::ServiceClient> set_mode_clients(num);
@@ -154,6 +155,8 @@ int main(int argc, char *argv[])
     		(mavros+(std::to_string(i+1))+"/state",1,state_cb);
     	positions_sub[i] = nh.subscribe<geometry_msgs::PoseStamped>
     		(mavros+(std::to_string(i+1))+"/local_position/pose",1, &ORCA::Agent::position_cb , &drones[i]); //
+        velocities_sub[i] = nh.subscribe<geometry_msgs::TwistStamped>
+            (mavros+(std::to_string(i+1))+"/local_position/velocity",1, &ORCA::Agent::vel_cb, &drones[i]);
     	positions_pub[i] =nh.advertise<geometry_msgs::PoseStamped>
     		(mavros+(std::to_string(i+1))+"/setpoint_position/local",10);
     	velocities_pub[i] = nh.advertise<geometry_msgs::Twist>
@@ -171,6 +174,7 @@ int main(int argc, char *argv[])
     	drones[i].timeHorizon_=timeHorizon;
         drones[i].tree_= &tree;
     }
+
     tree.setAgents(drones_pntr);
     ros::Rate rate(20.0); //0.05 sec
     tree.buildAgentTree();
@@ -200,7 +204,7 @@ int main(int argc, char *argv[])
     int count = 0 ; 
 
 
-    while(ros::ok() && count < 7){
+    while(ros::ok() && count < 5){
     	//Per abilitare l'offboard e fare decollare i droni
     	if( current_state.mode != "OFFBOARD" &&
             (ros::Time::now() - last_request > ros::Duration(5.0))){
@@ -253,6 +257,9 @@ int main(int argc, char *argv[])
          std::cout << count << std::endl;
     }
 
+
+    //Li faccio scontrare usando ORCA
+
     while(ros::ok()){
     	//Per abilitare l'offboard e fare decollare i droni
     	if( current_state.mode != "OFFBOARD" &&
@@ -277,13 +284,7 @@ int main(int argc, char *argv[])
         }
 
         //if(change){
-        for(int i = 100; ros::ok() && i > 0; --i){
-    		for(int j=0 ; j<num;j++){
-    			positions_pub[j].publish(second_goal[j]);
-    		}
-    		ros::spinOnce;
-    		rate.sleep();
-       	}
+        
 	
        // }else{
         //	for(int i = 100; ros::ok() && i > 0; --i){
@@ -297,6 +298,8 @@ int main(int argc, char *argv[])
 
 
         tree.buildAgentTree();
+        ros::spinOnce();
+        rate.sleep();
 
         //Calcolo i vicini e la nuova posizione
         for(int i=0; i<num; i++){
@@ -312,13 +315,22 @@ int main(int argc, char *argv[])
         //Invio la nuova velocita' calcolata
          for(int i=0; i<num; i++){
          	velocities_pub[i].publish(drones[i].newVelocityToPublish);
-            //std::cout << "mavros" << i << " " << drones[i].newVelocityToPublish << std::endl;
+            std::cout << "mavros" << i << " " << drones[i].newVelocityToPublish << std::endl;
             ros::spinOnce();
             rate.sleep();
         }
         //count++;
         ros::spinOnce();
         rate.sleep();
+
+        for(int i = 100; ros::ok() && i > 0; --i){
+            for(int j=0 ; j<num;j++){
+                positions_pub[j].publish(second_goal[j]);
+            }
+            ros::spinOnce;
+            rate.sleep();
+        }
+
         // int c=0;
         // for(int i=3; i<num ; i++){
         //     if( (drones[i].position_[0] <= (first_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (first_goal[i].pose.position.x-0.5)) 
