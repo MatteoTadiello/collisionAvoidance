@@ -309,8 +309,8 @@ int main(int argc, char *argv[])
         for(int i=0 ; i<num ; i++){
             for(int j=0 ; j<num; j++){
                 if ( IsColliding(drones_pntr[i] , drones_pntr[j]) && (i!=j) ){
-                    std::cout<< "Il drone "<< i+1 << "si e' scontrato con il drone" << j+1 << std::endl;
-                    std::cout<<"Numero collisioni totali: "<< ++collisioni <<std::endl;
+                    //std::cout<< "Il drone "<< i+1 << "si e' scontrato con il drone" << j+1 << std::endl;
+                    //std::cout<<"Numero collisioni totali: "<< ++collisioni <<std::endl;
                 }
 
             }
@@ -348,7 +348,7 @@ int main(int argc, char *argv[])
              if( (drones[i].position_[0] <= (second_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (second_goal[i].pose.position.x-0.5)) 
             	|| (drones[i].position_[1] <= (second_goal[i].pose.position.y+0.5) && drones[i].position_[1] >= (second_goal[i].pose.position.y-0.5))){
             	//|| (drones[i].position_[3] <= (second_goal[i].pose.position.z+1) && drones[i].position_[3] >= (second_goal[i].pose.position.z-1))){ tanto sono tutti alla stessa altezza
-            	std::cout << "Sono mavros"<< i+1 <<"Sono NEL POSTO GIUSTO"<< std::endl;
+            	//std::cout << "Sono mavros"<< i+1 <<"Sono NEL POSTO GIUSTO"<< std::endl;
                 v[i]=true;
             }
         }

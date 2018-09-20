@@ -1,0 +1,114 @@
+
+Il drone 1si e' scontrato con il drone12
+Numero collisioni totali: 1
+Il drone 12si e' scontrato con il drone1
+Numero collisioni totali: 2
+Il drone 3si e' scontrato con il drone12
+Numero collisioni totali: 3
+Il drone 12si e' scontrato con il drone3
+Numero collisioni totali: 4
+Il drone 3si e' scontrato con il drone12
+Numero collisioni totali: 5
+Il drone 12si e' scontrato con il drone3
+Numero collisioni totali: 6
+
+
+*** Il numero di collisioni totali e' 3
+Il drone 2si e' scontrato con il drone11
+Numero collisioni totali: 1
+Il drone 11si e' scontrato con il drone2
+Numero collisioni totali: 2
+
+*** Il numero di collisioni totali e' 1
+Il drone 4si e' scontrato con il drone11
+Numero collisioni totali: 1
+Il drone 11si e' scontrato con il drone4
+Numero collisioni totali: 2
+
+Il drone 4si e' scontrato con il drone12
+Numero collisioni totali: 3
+Il drone 12si e' scontrato con il drone4
+Numero collisioni totali: 4
+
+Il drone 3si e' scontrato con il drone6
+Numero collisioni totali: 5
+Il drone 6si e' scontrato con il drone3
+Numero collisioni totali: 6
+
+*** Il numero di collisioni totali e' 3
+*** Il numero di collisioni totali e' 0
+
+Il drone 4si e' scontrato con il drone11
+Numero collisioni totali: 1
+Il drone 11si e' scontrato con il drone4
+Numero collisioni totali: 2
+
+*** Il numero di collisioni totali e' 1
+Il drone 1si e' scontrato con il drone12
+Numero collisioni totali: 1
+Il drone 2si e' scontrato con il drone11
+Numero collisioni totali: 2
+Il drone 11si e' scontrato con il drone2
+Numero collisioni totali: 3
+Il drone 12si e' scontrato con il drone1
+Numero collisioni totali: 4
+Il drone 3si e' scontrato con il drone12
+Numero collisioni totali: 5
+Il drone 12si e' scontrato con il drone3
+Numero collisioni totali: 6
+
+*** Il numero di collisioni totali e' 3
+
+Il drone 1si e' scontrato con il drone12
+Numero collisioni totali: 1
+Il drone 12si e' scontrato con il drone1
+Numero collisioni totali: 2
+*** Il numero di collisioni totali e' 1
+
+Il drone 3si e' scontrato con il drone5
+Numero collisioni totali: 1
+Il drone 5si e' scontrato con il drone3
+Numero collisioni totali: 2
+
+*** Il numero di collisioni totali e' 1
+
+Il drone 4si e' scontrato con il drone11
+Numero collisioni totali: 1
+Il drone 11si e' scontrato con il drone4
+Numero collisioni totali: 2
+
+Il drone 4si e' scontrato con il drone9
+Numero collisioni totali: 3
+Il drone 9si e' scontrato con il drone4
+Numero collisioni totali: 4
+Il drone 3si e' scontrato con il drone12
+Numero collisioni totali: 5
+Il drone 12si e' scontrato con il drone3
+Numero collisioni totali: 6
+Il drone 6si e' scontrato con il drone11
+Numero collisioni totali: 7
+Il drone 11si e' scontrato con il drone6
+Numero collisioni totali: 8
+Il drone 8si e' scontrato con il drone12
+Numero collisioni totali: 9
+Il drone 12si e' scontrato con il drone8
+Numero collisioni totali: 10
+Il drone 8si e' scontrato con il drone11
+Numero collisioni totali: 11
+Il drone 11si e' scontrato con il drone8
+Numero collisioni totali: 12
+
+*** Il numero di collisioni totali e' 6
+
+Il drone 3si e' scontrato con il drone5
+Numero collisioni totali: 1
+Il drone 5si e' scontrato con il drone3
+Numero collisioni totali: 2
+Il drone 3si e' scontrato con il drone11
+Numero collisioni totali: 3
+Il drone 11si e' scontrato con il drone3
+Numero collisioni totali: 4
+
+*** Il numero di collisioni totali e' 2
+
+Media delle collisioni nell'esecuzione = 2,1 => 2
