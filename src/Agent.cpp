@@ -421,15 +421,10 @@ namespace ORCA{
         position_[0] = (double)((double)current_position.pose.position.x)+(system_id*2);
         position_[1] = (double)current_position.pose.position.y;
         position_[2] = (double)current_position.pose.position.z;
-
-        //this->computeNeighbors();
-        //this->computeNewVelocity();
-        //this->update();
     }
 
  	void Agent::vel_cb(const geometry_msgs::TwistStamped::ConstPtr& msg){
     	current_velocity= *msg;
-    	//ROS_INFO_STREAM("Arriva un messaggio velocita");
     	velocity_[0] = (double)current_velocity.twist.linear.x;
     	velocity_[1] = (double)current_velocity.twist.linear.y;
     	velocity_[2] = (double)current_velocity.twist.linear.z;

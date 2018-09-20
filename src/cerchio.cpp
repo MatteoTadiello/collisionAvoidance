@@ -6,7 +6,7 @@
 #include <ros/ros.h>
 #include <string>
 #include <vector>
-
+#include <cmath>
 
 #include <mavros_msgs/State.h>
 #include <geometry_msgs/TwistStamped.h>
@@ -23,7 +23,7 @@
 const int maxNeighbors = 12;
 const float maxSpeed = 2.5f;
 const float neighborDist = 1.5f;
-const float radius = 3.5f;
+const float radius = 0.3; //dimensione del modello iris 0.5 metri
 const float timeHorizon = 10.0f;
 
 mavros_msgs::State current_state;
@@ -37,6 +37,15 @@ bool swap(bool x){
 	}else{
 		return true;
 	}
+}
+
+bool IsColliding(const ORCA::Agent* a, const ORCA::Agent* b ){
+    double distance = sqrt( pow((a->position_[0]-b->position_[0]),2) + pow((a->position_[1]-b->position_[1]),2) + pow((a->position_[2]-b->position_[2]),2) );
+    //std::cout<< "La distanza e'di " << distance << "m" << std::endl;
+    if (distance < 2*radius){
+        return true;
+    }
+    return false;
 }
 
 
@@ -259,7 +268,7 @@ int main(int argc, char *argv[])
 
 
     //Li faccio scontrare usando ORCA
-
+    int collisioni=0;
     while(ros::ok()){
     	//Per abilitare l'offboard e fare decollare i droni
     	if( current_state.mode != "OFFBOARD" &&
@@ -267,7 +276,7 @@ int main(int argc, char *argv[])
     		for(int i=0; i<num ; i++){
     			if( set_mode_clients[i].call(offb_set_mode) &&
                 offb_set_mode.response.mode_sent){
-                	ROS_INFO("Offboard enabled");
+                	//ROS_INFO("Offboard enabled");
             }}
             
             last_request = ros::Time::now();
@@ -277,7 +286,7 @@ int main(int argc, char *argv[])
             	for(int i=0; i<num ; i++){
                 	if( arming_clients[i].call(arm_cmd) &&
                     arm_cmd.response.success){
-                    	ROS_INFO("Vehicle armed");
+                    	//ROS_INFO("Vehicle armed");
                 }}
                 last_request = ros::Time::now();
             }
@@ -296,6 +305,17 @@ int main(int argc, char *argv[])
     	//	}
        // }
 
+        // Calcolo le collisioni
+        for(int i=0 ; i<num ; i++){
+            for(int j=0 ; j<num; j++){
+                if ( IsColliding(drones_pntr[i] , drones_pntr[j]) && (i!=j) ){
+                    std::cout<< "Il drone "<< i+1 << "si e' scontrato con il drone" << j+1 << std::endl;
+                    std::cout<<"Numero collisioni totali: "<< ++collisioni <<std::endl;
+                }
+
+            }
+        }
+
 
         tree.buildAgentTree();
         ros::spinOnce();
@@ -312,37 +332,31 @@ int main(int argc, char *argv[])
             rate.sleep();
         }
 
-        //Invio la nuova velocita' calcolata
-         for(int i=0; i<num; i++){
-         	velocities_pub[i].publish(drones[i].newVelocityToPublish);
-            std::cout << "mavros" << i << " " << drones[i].newVelocityToPublish << std::endl;
-            ros::spinOnce();
-            rate.sleep();
-        }
         //count++;
-        ros::spinOnce();
-        rate.sleep();
 
         for(int i = 100; ros::ok() && i > 0; --i){
             for(int j=0 ; j<num;j++){
+                velocities_pub[j].publish(drones[j].newVelocityToPublish);
+                //std::cout << "mavros" << j << " " << drones[j].newVelocityToPublish << " " << velocities_pub[j] << std::endl;
                 positions_pub[j].publish(second_goal[j]);
             }
             ros::spinOnce;
             rate.sleep();
         }
+        std::vector<bool> v(num,false);
+        for(int i=0; i<num ; i++){
+             if( (drones[i].position_[0] <= (second_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (second_goal[i].pose.position.x-0.5)) 
+            	|| (drones[i].position_[1] <= (second_goal[i].pose.position.y+0.5) && drones[i].position_[1] >= (second_goal[i].pose.position.y-0.5))){
+            	//|| (drones[i].position_[3] <= (second_goal[i].pose.position.z+1) && drones[i].position_[3] >= (second_goal[i].pose.position.z-1))){ tanto sono tutti alla stessa altezza
+            	std::cout << "Sono mavros"<< i+1 <<"Sono NEL POSTO GIUSTO"<< std::endl;
+                v[i]=true;
+            }
+        }
 
-        // int c=0;
-        // for(int i=3; i<num ; i++){
-        //     if( (drones[i].position_[0] <= (first_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (first_goal[i].pose.position.x-0.5)) 
-        //     	|| (drones[i].position_[1] <= (first_goal[i].pose.position.y+0.5) && drones[i].position_[1] >= (first_goal[i].pose.position.y-0.5)) 
-        //     	|| (drones[i].position_[3] <= (first_goal[i].pose.position.z+1) && drones[i].position_[3] >= (first_goal[i].pose.position.z-1))){
-        //     	std::cout << "Sono "<< i+1 << std::endl;
-        //     	std::cout << "sono nello stesso posto? "<< ((drones[i].position_[0] < first_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (first_goal[i].pose.position.x-0.5)) << std::endl;
-        //     	std::cout << "Sono : " << drones[i].position_[0]<<std::endl;
-        //     	std::cout << "Devo andare: "<< first_goal[i].pose.position.x <<std:: endl;
-        //     	std::cout << c++ << std::endl;
-        //     }
-        // }
+        if(std::all_of(v.begin(),v.end(), [](bool i){ return i; })){
+            std::cout<<"Il numero di collisioni totali e' "<< collisioni/2;
+            return 0;
+        }
         // if(c==0){
         // 	change=swap(change);
         // 	std::cout << "CAMBIOOOOO" << std::endl;
