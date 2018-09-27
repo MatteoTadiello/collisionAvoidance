@@ -13,11 +13,9 @@
 #include <ros/ros.h>
 #include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <geometry_msgs/PoseStamped.h>
-
+#include <geometry_msgs/Twist.h>
 #include <geometry_msgs/TwistStamped.h>
 #include <nav_msgs/Odometry.h>
-
-
  
 #include "Definitions.h"
 #include "KdTree.h"
@@ -433,5 +431,14 @@ namespace ORCA{
 	void Agent::setId(int id){
 		id_=id;
 	}
+
+	bool Agent::IsColliding(const ORCA::Agent* b ){
+	    double distance = sqrt( pow((position_[0]-b->position_[0]),2) + pow((position_[1]-b->position_[1]),2) + pow((position_[2]-b->position_[2]),2) );
+	    std::cout<< "La distanza e'di " << distance << "m" << std::endl;
+	    if (distance < 2*radius_){
+	        return true;
+	    }
+	    return false;
+}
 
 }

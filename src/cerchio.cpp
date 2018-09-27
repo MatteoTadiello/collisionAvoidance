@@ -39,16 +39,6 @@ bool swap(bool x){
 	}
 }
 
-bool IsColliding(const ORCA::Agent* a, const ORCA::Agent* b ){
-    double distance = sqrt( pow((a->position_[0]-b->position_[0]),2) + pow((a->position_[1]-b->position_[1]),2) + pow((a->position_[2]-b->position_[2]),2) );
-    //std::cout<< "La distanza e'di " << distance << "m" << std::endl;
-    if (distance < 2*radius){
-        return true;
-    }
-    return false;
-}
-
-
 int main(int argc, char *argv[])
 {
 	ros::init(argc, argv, "collision_avoidance_node" );
@@ -84,7 +74,7 @@ int main(int argc, char *argv[])
     first_goal[4].pose.position.y = 1;
 
     first_goal[5].pose.position.x =  0;
-    first_goal[5].pose.position.y =0;
+    first_goal[5].pose.position.y =  -2;
 
     first_goal[6].pose.position.x =  -2;
     first_goal[6].pose.position.y =20;
@@ -132,7 +122,7 @@ int main(int argc, char *argv[])
     second_goal[8].pose.position.x = -11;
     second_goal[8].pose.position.y = 18;
 
-    second_goal[9].pose.position.x = 17;
+    second_goal[9].pose.position.x = -17;
     second_goal[9].pose.position.y = 6;
 
     second_goal[10].pose.position.x = -19;
@@ -213,7 +203,7 @@ int main(int argc, char *argv[])
     int count = 0 ; 
 
 
-    while(ros::ok() && count < 5){
+    while(ros::ok() && count < 6){
     	//Per abilitare l'offboard e fare decollare i droni
     	if( current_state.mode != "OFFBOARD" &&
             (ros::Time::now() - last_request > ros::Duration(5.0))){
@@ -246,24 +236,6 @@ int main(int argc, char *argv[])
         count++;
         ros::spinOnce();
         rate.sleep();
-        // int c=0;
-        // for(int i=3; i<num ; i++){
-        //     if( (drones[i].position_[0] <= (first_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (first_goal[i].pose.position.x-0.5)) 
-        //     	|| (drones[i].position_[1] <= (first_goal[i].pose.position.y+0.5) && drones[i].position_[1] >= (first_goal[i].pose.position.y-0.5)) 
-        //     	|| (drones[i].position_[3] <= (first_goal[i].pose.position.z+1) && drones[i].position_[3] >= (first_goal[i].pose.position.z-1))){
-        //     	std::cout << "Sono "<< i+1 << std::endl;
-        //     	std::cout << "sono nello stesso posto? "<< ((drones[i].position_[0] < first_goal[i].pose.position.x+0.5) && drones[i].position_[0] >= (first_goal[i].pose.position.x-0.5)) << std::endl;
-        //     	std::cout << "Sono : " << drones[i].position_[0]<<std::endl;
-        //     	std::cout << "Devo andare: "<< first_goal[i].pose.position.x <<std:: endl;
-        //     	std::cout << c++ << std::endl;
-        //     }
-        // }
-        // if(c==0){
-        // 	change=swap(change);
-        // 	std::cout << "CAMBIOOOOO" << std::endl;
-
-        // }
-         std::cout << count << std::endl;
     }
 
 
@@ -292,25 +264,14 @@ int main(int argc, char *argv[])
             }
         }
 
-        //if(change){
-        
-	
-       // }else{
-        //	for(int i = 100; ros::ok() && i > 0; --i){
-    	//		for(int j=0 ; j<num;j++){
-    	//			positions_pub[j].publish(first_goal[j]);
-    	//		}
-        //		ros::spinOnce();
-        //		rate.sleep();
-    	//	}
-       // }
-
         // Calcolo le collisioni
         for(int i=0 ; i<num ; i++){
             for(int j=0 ; j<num; j++){
-                if ( IsColliding(drones_pntr[i] , drones_pntr[j]) && (i!=j) ){
-                    //std::cout<< "Il drone "<< i+1 << "si e' scontrato con il drone" << j+1 << std::endl;
-                    //std::cout<<"Numero collisioni totali: "<< ++collisioni <<std::endl;
+                if ( drones_pntr[i]->IsColliding(drones_pntr[j]) && (i!=j) ){
+                    std::cout<< "Il drone "<< i+1 << "si e' scontrato con il drone" << j+1 << std::endl;
+                    std::cout<<"Numero collisioni totali: "<< ++collisioni <<std::endl;
+                    
+                    //collisioni++;
                 }
 
             }
@@ -332,12 +293,9 @@ int main(int argc, char *argv[])
             rate.sleep();
         }
 
-        //count++;
-
         for(int i = 100; ros::ok() && i > 0; --i){
             for(int j=0 ; j<num;j++){
                 velocities_pub[j].publish(drones[j].newVelocityToPublish);
-                //std::cout << "mavros" << j << " " << drones[j].newVelocityToPublish << " " << velocities_pub[j] << std::endl;
                 positions_pub[j].publish(second_goal[j]);
             }
             ros::spinOnce;
@@ -357,12 +315,6 @@ int main(int argc, char *argv[])
             std::cout<<"Il numero di collisioni totali e' "<< collisioni/2;
             return 0;
         }
-        // if(c==0){
-        // 	change=swap(change);
-        // 	std::cout << "CAMBIOOOOO" << std::endl;
-
-        // }
-         //std::cout << count << std::endl;
     }
 
 	return 0;

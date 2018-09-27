@@ -4,6 +4,10 @@
 		"selected_items":
 		[
 			[
+				"velocities",
+				"velocities_sub"
+			],
+			[
 				"cout",
 				"count"
 			],
@@ -510,10 +514,6 @@
 			[
 				"poso",
 				"position_velocity_publisher"
-			],
-			[
-				"posti",
-				"position_velocity_publisher"
 			]
 		]
 	},
@@ -523,61 +523,25 @@
 			"file": "src/cerchio.cpp",
 			"settings":
 			{
-				"buffer_size": 11711,
+				"buffer_size": 10462,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/collision_avoidance.cpp",
+			"file": "src/Definitions.h",
 			"settings":
 			{
-				"buffer_size": 6787,
+				"buffer_size": 1650,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "src/Vector3.h",
+			"file": "src/Agent.h",
 			"settings":
 			{
-				"buffer_size": 11956,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/etc/systemd/logind.conf",
-			"settings":
-			{
-				"buffer_size": 1021,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/etc/default/grub",
-			"settings":
-			{
-				"buffer_size": 1254,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "/home/matteo/.local/share/applications/eclipse.desktop",
-			"settings":
-			{
-				"buffer_size": 284,
-				"encoding": "UTF-8",
-				"line_ending": "Unix"
-			}
-		},
-		{
-			"file": "src/KdTree.cpp",
-			"settings":
-			{
-				"buffer_size": 4838,
+				"buffer_size": 2201,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -586,7 +550,16 @@
 			"file": "src/Agent.cpp",
 			"settings":
 			{
-				"buffer_size": 14827,
+				"buffer_size": 15051,
+				"encoding": "UTF-8",
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/collision_avoidance.cpp",
+			"settings":
+			{
+				"buffer_size": 6005,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -722,6 +695,15 @@
 	],
 	"file_history":
 	[
+		"/home/matteo/catkin_ws/src/collision_avoidance/src/Agent.cpp",
+		"/home/matteo/catkin_ws/src/collision_avoidance/src/KdTree.cpp",
+		"/home/matteo/catkin_ws/src/collision_avoidance/src/Vector3.h",
+		"/home/matteo/catkin_ws/logNoORCA.txt",
+		"/usr/share/gazebo/setup.sh",
+		"/home/matteo/tesi_laurea_latex/.gitignore",
+		"/etc/systemd/logind.conf",
+		"/etc/default/grub",
+		"/home/matteo/.local/share/applications/eclipse.desktop",
 		"/home/matteo/catkin_ws/src/collision_avoidance/src/offb/src/Agent.h",
 		"/home/matteo/catkin_ws/src/collision_avoidance/src/offb/src/Agent.cpp",
 		"/home/matteo/catkin_ws/src/collision_avoidance/src/offb/src/collision_avoidance.cpp",
@@ -840,20 +822,11 @@
 		"/home/matteo/Firmware/build_for_multi_uav.sh",
 		"/home/matteo/Firmware/Tools/multiple-sitl/install/catkin_prepare.sh",
 		"/home/matteo/Firmware/posix-configs/SITL/init/ekf2/iris_5",
-		"/home/matteo/Firmware/posix-configs/SITL/init/ekf2/iris_3",
-		"/home/matteo/Firmware/posix-configs/SITL/init/ekf2/iris_1",
-		"/home/matteo/Firmware/launch/multi_uav_mavros_sitl_3.launch",
-		"/home/matteo/Firmware/platforms/posix/src/main.cpp",
-		"/home/matteo/.config/sublime-text-3/Packages/User/SublimeCodeIntel.sublime-settings",
-		"/home/matteo/.config/sublime-text-3/Packages/SublimeCodeIntel/SublimeCodeIntel.sublime-settings",
-		"/home/matteo/Firmware/CTestConfig.cmake",
-		"/home/matteo/Firmware/Firmware.sublime-project",
-		"/home/matteo/Firmware/Tools/aero_upload.sh",
-		"/home/matteo/javascripting/introduction.js"
+		"/home/matteo/Firmware/posix-configs/SITL/init/ekf2/iris_3"
 	],
 	"find":
 	{
-		"height": 55.0
+		"height": 79.0
 	},
 	"find_in_files":
 	{
@@ -867,6 +840,12 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"PoseWithCovarianceStamped",
+			"isC",
+			"velocity",
+			"velocity_",
+			"velolcity_",
+			"vel",
 			"float",
 			"first_goal",
 			"pose",
@@ -906,7 +885,7 @@
 	"groups":
 	[
 		{
-			"selected": 5,
+			"selected": 0,
 			"sheets":
 			[
 				{
@@ -915,15 +894,15 @@
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 11711,
+						"buffer_size": 10462,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								591,
-								591
+								8901,
+								8901
 							]
 						],
 						"settings":
@@ -933,57 +912,27 @@
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 114.0,
+						"translation.y": 10715.0,
 						"zoom_level": 1.0
 					},
-					"stack_index": 7,
+					"stack_index": 0,
 					"type": "text"
 				},
 				{
 					"buffer": 1,
-					"file": "src/collision_avoidance.cpp",
+					"file": "src/Definitions.h",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 6787,
+						"buffer_size": 1650,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								664,
-								664
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"tab_size": 4,
-							"translate_tabs_to_spaces": true
-						},
-						"translation.x": 0.0,
-						"translation.y": 3648.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 5,
-					"type": "text"
-				},
-				{
-					"buffer": 2,
-					"file": "src/Vector3.h",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 11956,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								1504,
-								1504
+								1043,
+								1043
 							]
 						],
 						"settings":
@@ -992,7 +941,36 @@
 							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 1596.0,
+						"translation.y": 987.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 4,
+					"type": "text"
+				},
+				{
+					"buffer": 2,
+					"file": "src/Agent.h",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 2201,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								786,
+								786
+							]
+						],
+						"settings":
+						{
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
+						},
+						"translation.x": 0.0,
+						"translation.y": 1026.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 3,
@@ -1000,27 +978,28 @@
 				},
 				{
 					"buffer": 3,
-					"file": "/etc/systemd/logind.conf",
+					"file": "src/Agent.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1021,
+						"buffer_size": 15051,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								687,
-								687
+								14711,
+								14711
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"translate_tabs_to_spaces": false
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 15617.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 2,
@@ -1028,116 +1007,32 @@
 				},
 				{
 					"buffer": 4,
-					"file": "/etc/default/grub",
+					"file": "src/collision_avoidance.cpp",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1254,
+						"buffer_size": 6005,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								0,
-								0
+								701,
+								701
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
+							"syntax": "Packages/C++/C++.sublime-syntax",
+							"tab_size": 4,
+							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
-						"translation.y": 0.0,
+						"translation.y": 2394.0,
 						"zoom_level": 1.0
 					},
 					"stack_index": 1,
-					"type": "text"
-				},
-				{
-					"buffer": 5,
-					"file": "/home/matteo/.local/share/applications/eclipse.desktop",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 284,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								284,
-								284
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/Text/Plain text.tmLanguage"
-						},
-						"translation.x": 0.0,
-						"translation.y": 0.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 0,
-					"type": "text"
-				},
-				{
-					"buffer": 6,
-					"file": "src/KdTree.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 4838,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								4750,
-								4750
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 4104.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 4,
-					"type": "text"
-				},
-				{
-					"buffer": 7,
-					"file": "src/Agent.cpp",
-					"semi_transient": false,
-					"settings":
-					{
-						"buffer_size": 14827,
-						"regions":
-						{
-						},
-						"selection":
-						[
-							[
-								14122,
-								14122
-							]
-						],
-						"settings":
-						{
-							"syntax": "Packages/C++/C++.sublime-syntax",
-							"translate_tabs_to_spaces": false
-						},
-						"translation.x": 0.0,
-						"translation.y": 15162.0,
-						"zoom_level": 1.0
-					},
-					"stack_index": 6,
 					"type": "text"
 				}
 			]
@@ -1220,12 +1115,16 @@
 	},
 	"select_project":
 	{
-		"height": 500.0,
+		"height": 1000.0,
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"~/Firmware/Firmware.sublime-project"
+			]
 		],
-		"width": 380.0
+		"width": 760.0
 	},
 	"select_symbol":
 	{
@@ -1244,7 +1143,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 411.0,
+	"side_bar_width": 428.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{

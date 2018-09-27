@@ -15,10 +15,10 @@
 #include <cstddef>
 #include <utility>
 
-#include <geometry_msgs/PoseWithCovarianceStamped.h>
 #include <geometry_msgs/PoseStamped.h>
 #include <geometry_msgs/TwistStamped.h>
-#include <geometry_msgs/Vector3.h>
+#include <geometry_msgs/Twist.h>
+//#include <geometry_msgs/Vector3.h>
 #include <nav_msgs/Odometry.h>
 
 #include "Vector3.h"
@@ -36,7 +36,7 @@ namespace ORCA{
 	 		void position_cb(const geometry_msgs::PoseStamped::ConstPtr& msg);
 		 	void vel_cb(const geometry_msgs::TwistStamped::ConstPtr& msg);
 		 	void setId(int id);
-
+		 	bool IsColliding(const ORCA::Agent* b );
 		 	explicit Agent();
 		 	
 		 	///////////////////////////////////////////////////////////// for retriving information from UAV

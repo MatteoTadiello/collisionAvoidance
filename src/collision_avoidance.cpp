@@ -26,7 +26,7 @@
 const int maxNeighbors = 10;
 const float maxSpeed = 1.5f;
 const float neighborDist = 1.0f;
-const float radius = 0.5f;
+const float radius = 0.3;
 const float timeHorizon = 10.0f;
 
 mavros_msgs::State current_state;
@@ -96,35 +96,6 @@ int main(int argc, char *argv[])
     	ros::spinOnce();
     	rate.sleep();
     }
-
-    //std::vector<std::vector<double>> v(num); // posizioni relative
-    //std::ofstream myfile;
-    //myfile.open("pos.txt");
-//     for(int i = 100; ros::ok() && i > 0; --i){
-//         for(int i=0; i<num; i++){
-//             myfile<<"Drone"<<i<<" : ";
-
-//             for(int j=0 ; j<num ; j++){
-//                  v[i].push_back(drones[i].position_[0] - drones[j].position_[0]);
-//                  myfile << v[i][j] <<"\t";
-
-//             }
-//             myfile<<std::endl;
-
-//     }
-
-//      ros::spinOnce();
-//      rate.sleep();
-// }
-
-
-//     for(int i=0; i<num; i++){
-//             std::cout<<"Drone"<<i<<" : ";
-//             for(int j=0 ; j<num ; j++){
-//                  std::cout << v[i][j] <<"\t";
-//             }
-//             std::cout<<std::endl;
-//     }
 
     std::vector<geometry_msgs::PoseStamped> goals(num);
 
